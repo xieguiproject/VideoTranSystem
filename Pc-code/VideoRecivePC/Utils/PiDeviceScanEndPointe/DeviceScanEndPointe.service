@@ -1,0 +1,26 @@
+[Unit]
+#1、cp DeviceScanEndPointe.service /etc/systemd/system
+#2、sudo systemctl start DeviceScanEndPointe.service
+#sudo systemctl enable DeviceScanEndPointe.service
+#3、sudo systemctl stauts DeviceScanEndPointe.service
+#4、sudo systemctl stop DeviceScanEndPointe.service
+Description=your description
+# 必须执行网络
+Requires=network-online.target
+# 在网络启动后启动程序
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+# 工作目录
+WorkingDirectory=/home/smarthome/PiDeviceScanEndPointe
+# 需要自启动的代码
+ExecStart=/usr/bin/python3 PiDeviceScanEndPointe.py &
+RestartSec=3
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
